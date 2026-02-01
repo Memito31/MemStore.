@@ -201,6 +201,7 @@ body.dark .btn-borrar {
 
 </style>
 <script>
+    const CLAVE_ADMIN = "28241708"; // 👈 cambia esto por tu clave real
     function toggleDarkMode() {
         document.body.classList.toggle('dark');
     }
@@ -238,6 +239,32 @@ body.dark .btn-borrar {
     }
 
     window.addEventListener('load', cargarComentarios);
+
+const CLAVE_ADMIN = "memito123"; // 🔐 tu clave
+let esAdmin = false;
+
+// pedir clave solo una vez
+const clave = prompt("Clave de administrador:");
+if (clave === CLAVE_ADMIN) {
+    esAdmin = true;
+    alert("Modo administrador activado ✅");
+}
+
+function toggleDarkMode() {
+    document.body.classList.toggle('dark');
+}
+
+/* tus funciones de comentarios */
+function cargarComentarios() {
+   ...
+}
+
+function agregarComentario() {
+   ...
+}
+
+window.addEventListener('load', cargarComentarios);
+
 </script>
 </head>
 <body>
@@ -299,20 +326,28 @@ body.dark .btn-borrar {
 </section>
 
 <section class="comentarios">
-    <h2>Comentarios</h2>
-    <input type="text" id="nombre" placeholder="Tu nombre">
-    <textarea id="mensaje" placeholder="Escribe tu comentario"></textarea>
-    <button onclick="agregarComentario()">Enviar</button>
-    <div id="listaComentarios"></div>
-    <div class="estrellas" id="rating">
-  <span data-val="1">★</span>
-  <span data-val="2">★</span>
-  <span data-val="3">★</span>
-  <span data-val="4">★</span>
-  <span data-val="5">★</span>
-</div>
+  <h2>Comentarios</h2>
 
+  <form id="comentarios-form">
+    <input type="text" id="nombre" placeholder="Tu nombre" required>
+
+    <textarea id="mensaje" placeholder="Escribe tu comentario" required></textarea>
+
+    <!-- ⭐ Estrellas -->
+    <div class="estrellas" id="rating">
+      <span data-val="1">★</span>
+      <span data-val="2">★</span>
+      <span data-val="3">★</span>
+      <span data-val="4">★</span>
+      <span data-val="5">★</span>
+    </div>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+  <div id="listaComentarios"></div>
 </section>
+
 
 <footer>
     <p>&copy; 2026 MemStore - Todos los derechos reservados</p>
@@ -323,62 +358,88 @@ body.dark .btn-borrar {
 let rating = 0;
 let ultimoComentario = 0;
 
+function toggleDarkMode() {
+  document.body.classList.toggle('dark');
+}
+
 // ⭐ estrellas
-document.querySelectorAll('#rating span').forEach(star => {
-  star.addEventListener('click', () => {
-    rating = star.dataset.val;
+document.addEventListener('click', e => {
+  if (e.target.parentElement?.id === 'rating') {
+    rating = e.target.dataset.val;
     document.querySelectorAll('#rating span').forEach(s => {
       s.classList.toggle('activa', s.dataset.val <= rating);
     });
-  });
+  }
 });
 
-// 📝 enviar comentario
+// 📝 cargar comentarios
+function cargarComentarios() {
+  const lista = document.getElementById('listaComentarios');
+  const comentarios = JSON.parse(localStorage.getItem('comentarios_memstore')) || [];
+  lista.innerHTML = '';
+
+  comentarios.forEach((c, i) => {
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.innerHTML = `
+      <strong>${c.nombre}</strong>
+      <p>${c.mensaje}</p>
+      <div>${'★'.repeat(c.rating)}</div>
+      <button class="btn-borrar" onclick="borrarComentario(${i})">🗑️ Eliminar</button>
+    `;
+    lista.appendChild(div);
+  });
+}
+
+// 🗑️ borrar
+function borrarComentario(index) {
+  const comentarios = JSON.parse(localStorage.getItem('comentarios_memstore')) || [];
+  comentarios.splice(index, 1);
+  localStorage.setItem('comentarios_memstore', JSON.stringify(comentarios));
+  cargarComentarios();
+}
+
+// 📩 enviar comentario
 document.getElementById('comentarios-form').addEventListener('submit', e => {
   e.preventDefault();
 
   const nombre = document.getElementById('nombre').value.trim();
-  const texto = document.getElementById('comentario').value.trim();
+  const mensaje = document.getElementById('mensaje').value.trim();
   const ahora = Date.now();
 
-  // 🔐 Anti-spam
-  if (texto.length < 5) {
+  if (mensaje.length < 5) {
     alert("El comentario es muy corto bro 😅");
     return;
   }
 
-  if (ahora - ultimoComentario < 30000) {
-    alert("Espera 30 segundos antes de comentar otra vez ⏳");
+  if (rating === 0) {
+    alert("Dale una calificación con estrellas ⭐");
     return;
   }
 
-  if (rating == 0) {
-    alert("Dale una calificación con estrellas ⭐");
+  if (ahora - ultimoComentario < 30000) {
+    alert("Espera 30 segundos antes de comentar ⏳");
     return;
   }
 
   ultimoComentario = ahora;
 
-  const comentario = document.createElement('div');
-  comentario.classList.add('comentario');
-  comentario.innerHTML = `
-    <strong>${nombre}</strong>
-    <p>${texto}</p>
-    <div>${'★'.repeat(rating)}</div>
-    <button class="btn-borrar">Eliminar</button>
-  `;
+  const comentarios = JSON.parse(localStorage.getItem('comentarios_memstore')) || [];
+  comentarios.push({ nombre, mensaje, rating });
 
-  comentario.querySelector('.btn-borrar').addEventListener('click', () => {
-    comentario.remove();
-  });
-
-  document.getElementById('lista-comentarios').appendChild(comentario);
+  localStorage.setItem('comentarios_memstore', JSON.stringify(comentarios));
 
   e.target.reset();
   rating = 0;
   document.querySelectorAll('#rating span').forEach(s => s.classList.remove('activa'));
+
+  cargarComentarios();
 });
+
+window.addEventListener('load', cargarComentarios);
 </script>
+
+
 
 
 </body>
