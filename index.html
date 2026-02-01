@@ -200,72 +200,6 @@ body.dark .btn-borrar {
 
 
 </style>
-<script>
-    const CLAVE_ADMIN = "28241708"; // 👈 cambia esto por tu clave real
-    function toggleDarkMode() {
-        document.body.classList.toggle('dark');
-    }
-
-    function cargarComentarios() {
-        const lista = document.getElementById('listaComentarios');
-        const comentarios = JSON.parse(localStorage.getItem('comentarios_memstore')) || [];
-        lista.innerHTML = '';
-
-        comentarios.forEach(c => {
-            const div = document.createElement('div');
-            div.className = 'card';
-            div.innerHTML = `<strong>${c.nombre}</strong><p>${c.mensaje}</p>`;
-            lista.appendChild(div);
-        });
-    }
-
-    function agregarComentario() {
-        const nombre = document.getElementById('nombre').value.trim();
-        const mensaje = document.getElementById('mensaje').value.trim();
-
-        if (!nombre || !mensaje) {
-            alert('Completa todos los campos bro');
-            return;
-        }
-
-        const comentarios = JSON.parse(localStorage.getItem('comentarios_memstore')) || [];
-        comentarios.push({ nombre, mensaje });
-        localStorage.setItem('comentarios_memstore', JSON.stringify(comentarios));
-
-        document.getElementById('nombre').value = '';
-        document.getElementById('mensaje').value = '';
-
-        cargarComentarios();
-    }
-
-    window.addEventListener('load', cargarComentarios);
-
-const CLAVE_ADMIN = "memito123"; // 🔐 tu clave
-let esAdmin = false;
-
-// pedir clave solo una vez
-const clave = prompt("Clave de administrador:");
-if (clave === CLAVE_ADMIN) {
-    esAdmin = true;
-    alert("Modo administrador activado ✅");
-}
-
-function toggleDarkMode() {
-    document.body.classList.toggle('dark');
-}
-
-/* tus funciones de comentarios */
-function cargarComentarios() {
-   ...
-}
-
-function agregarComentario() {
-   ...
-}
-
-window.addEventListener('load', cargarComentarios);
-
-</script>
 </head>
 <body>
 
@@ -355,24 +289,36 @@ window.addEventListener('load', cargarComentarios);
 
 <button onclick="toggleDarkMode()" class="dark-btn">🌙</button>
 <script>
-let rating = 0;
-let ultimoComentario = 0;
+/* 🔐 CLAVE ADMIN */
+const CLAVE_ADMIN = "28241708"; // cambia si quieres
+let esAdmin = false;
 
+/* pedir clave solo una vez */
+const clave = prompt("Clave de administrador:");
+if (clave === CLAVE_ADMIN) {
+  esAdmin = true;
+  alert("Modo administrador activado ✅");
+}
+
+/* 🌙 modo oscuro */
 function toggleDarkMode() {
   document.body.classList.toggle('dark');
 }
 
-// ⭐ estrellas
+/* ⭐ estrellas */
+let rating = 0;
+let ultimoComentario = 0;
+
 document.addEventListener('click', e => {
   if (e.target.parentElement?.id === 'rating') {
-    rating = e.target.dataset.val;
+    rating = Number(e.target.dataset.val);
     document.querySelectorAll('#rating span').forEach(s => {
       s.classList.toggle('activa', s.dataset.val <= rating);
     });
   }
 });
 
-// 📝 cargar comentarios
+/* 📝 cargar comentarios */
 function cargarComentarios() {
   const lista = document.getElementById('listaComentarios');
   const comentarios = JSON.parse(localStorage.getItem('comentarios_memstore')) || [];
@@ -381,25 +327,29 @@ function cargarComentarios() {
   comentarios.forEach((c, i) => {
     const div = document.createElement('div');
     div.className = 'card';
+
     div.innerHTML = `
       <strong>${c.nombre}</strong>
       <p>${c.mensaje}</p>
       <div>${'★'.repeat(c.rating)}</div>
-      <button class="btn-borrar" onclick="borrarComentario(${i})">🗑️ Eliminar</button>
+      ${esAdmin ? `<button class="btn-borrar" onclick="borrarComentario(${i})">🗑️ Eliminar</button>` : ''}
     `;
+
     lista.appendChild(div);
   });
 }
 
-// 🗑️ borrar
+/* 🗑️ borrar solo admin */
 function borrarComentario(index) {
+  if (!esAdmin) return;
+
   const comentarios = JSON.parse(localStorage.getItem('comentarios_memstore')) || [];
   comentarios.splice(index, 1);
   localStorage.setItem('comentarios_memstore', JSON.stringify(comentarios));
   cargarComentarios();
 }
 
-// 📩 enviar comentario
+/* 📩 enviar comentario */
 document.getElementById('comentarios-form').addEventListener('submit', e => {
   e.preventDefault();
 
@@ -407,18 +357,18 @@ document.getElementById('comentarios-form').addEventListener('submit', e => {
   const mensaje = document.getElementById('mensaje').value.trim();
   const ahora = Date.now();
 
-  if (mensaje.length < 5) {
-    alert("El comentario es muy corto bro 😅");
+  if (!nombre || !mensaje) {
+    alert("Completa todos los campos bro");
     return;
   }
 
   if (rating === 0) {
-    alert("Dale una calificación con estrellas ⭐");
+    alert("Pon estrellas ⭐");
     return;
   }
 
   if (ahora - ultimoComentario < 30000) {
-    alert("Espera 30 segundos antes de comentar ⏳");
+    alert("Espera 30 segundos ⏳");
     return;
   }
 
@@ -438,9 +388,6 @@ document.getElementById('comentarios-form').addEventListener('submit', e => {
 
 window.addEventListener('load', cargarComentarios);
 </script>
-
-
-
 
 </body>
 </html>
