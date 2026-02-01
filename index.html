@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MemStore</title>
+    <link rel="icon" href="img/logo.png">
+ 
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        header {
+            background-color: #e6f4f7;
+            color: #2c3e50;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        nav {
+            background-color: #dceef2;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: #4a7a8c;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        section {
+            padding: 20px;
+        }
+        .productos, .servicios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: #ffffff;
+            color: #333;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+        footer {
+            background-color: #e6f4f7;
+            color: #4a7a8c;
+            text-align: center;
+            padding: 15px;
+        }
+    @media (max-width: 768px) {
+        header {
+            flex-direction: column;
+            text-align: center;
+        }
+        .logo {
+            width: 120px;
+            height: 120px;
+        }
+        nav a {
+            display: block;
+            margin: 10px 0;
+        }
+    }
+
+    @media (max-width: 480px) {
+        section {
+            padding: 15px;
+        }
+        h1 {
+            font-size: 1.6em;
+        }
+    }
+.dark-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #ffffff;
+            border: 2px solid #4a7a8c;
+            padding: 10px 14px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            font-size: 18px;
+            z-index: 1000;
+        }
+
+        body.dark {
+            background-color: #05070f;
+            color: #eaeaea;
+            background-image:
+                radial-gradient(2px 2px at 20px 30px, #ffffff, transparent),
+                radial-gradient(1.5px 1.5px at 80px 120px, #ffffff, transparent),
+                radial-gradient(1px 1px at 150px 200px, #ffffff, transparent),
+                radial-gradient(2px 2px at 250px 400px, #ffffff, transparent),
+                radial-gradient(1.5px 1.5px at 350px 100px, #ffffff, transparent);
+            background-size: 400px 400px;
+        }
+        body.dark header,
+        body.dark nav,
+        body.dark footer {
+            background: linear-gradient(180deg, #0b1026, #05070f);
+            color: #eaeaea;
+        }
+        body.dark .card {
+            background: rgba(20, 25, 60, 0.85);
+            backdrop-filter: blur(4px);
+            color: #eaeaea;
+            box-shadow: 0 0 20px rgba(255,255,255,0.05);
+        }
+        section, .card {
+            animation: fadeIn 0.8s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        } 
+        .logo {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    }
+
+</style>
+<script>
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark');
+    }
+</script>
+</head>
+<body>
+
+<header>
+    <img src="img/mejorn.png" alt="Logo MemStore" class="logo">
+    <div>
+        <h1>MemStore</h1>
+        <p>Venta de tecnología y servicios especializados</p>
+    </div>
+</header>
+
+<nav>
+    <a href="#inicio">Inicio</a>
+    <a href="#productos">Productos</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#contacto">Contacto</a>
+</nav>
+
+<section id="inicio">
+    <h2>Bienvenido</h2>
+    <p>
+        En <strong>MemStore</strong> nos dedicamos a ofrecer productos tecnológicos de calidad junto a servicios confiables que se adaptan a tus necesidades. Nuestro objetivo es brindarte soluciones prácticas, accesibles y eficientes, ya sea para el estudio, el trabajo o el uso personal.
+    </p>
+    <p>
+        Contamos con un equipo comprometido en ayudarte a elegir el producto ideal y en ofrecerte soporte técnico profesional. En MemStore creemos en la tecnología como una herramienta para facilitar tu día a día.
+    </p>
+</section>
+
+<section id="productos">
+    <h2>Productos</h2>
+    <p>Los productos todos estan en buenas condiciones sin algun fallo o error, y estan probadas 
+        todos los componenetes en este apartado </p>
+    <div class="productos">
+        <div class="card"><h3> Memoria ram 4GB DDR4</h3><p> Precio RD$6,000.</p></div>
+        <div class="card"><h3> Memoria ram 2GB DDR3</h3><p> Precio RD$500.</p></div>
+        <div class="card"><h3> Memoria ram 4GB DDR3</h3><p> Precio RD$1,500.</p></div>
+        <div class="card"><h3> Memoria ram 4GB DDR3</h3><p> Precio RD$1,500.</p></div>
+        <div class="card"><h3> Almacenamiento 500 GB SSD</h3><p> Precio RD$3,000.</p></div>
+        <div class="card"><h3> Disco duro 250 GB (para pc )</h3><p> Precio RD$1,200.</p></div>
+        <div class="card"><h3> Memoria ram 2GB DDR3 (para pc )</h3><p> Precio RD$500.</p></div>
+       <div class="card"><h3> Memoria ram 2GB DDR2 (para pc ) </h3><p> Precio RD$400.</p></div>
+    </div>
+</section>
+
+<section id="servicios">
+    <h2>Servicios</h2>
+    <div class="servicios">
+        <div class="card"><h3> Limpieza de hardware </h3><p> Precio RD$500.</p></div>
+        <div class="card"><h3> Limpieza de Software</h3><p> Precio RD$500.</p></div>
+        <div class="card"><h3> Instalación de windows</h3><p> Precio RD$1000.</p></div>
+        <div class="card"><h3> Activacion de windows</h3><p>Precio RD$500.</p></div>
+        <div class="card"><h3> Instalación de office</h3><p>Precio RD$1000.</p></div>
+        <div class="card"><h3> Activacion de office</h3><p>Precio RD$500.</p></div>
+        <div class="card"><h3> Instalacion de jeugos </h3><p>100 x juegos (si pesa mucho 500).</p></div>
+    </div>
+</section>
+
+<section id="contacto">
+    <h2>Contacto</h2>
+    <p> Llama si te interesa algun componente o servicio</p>
+    <p> Email: ripmemito@gmail.com</p>
+    <p> Teléfono: 829-351-1046</p>
+</section>
+
+<footer>
+    <p>&copy; 2026 MemStore - Todos los derechos reservados</p>
+</footer>
+
+<button onclick="toggleDarkMode()" class="dark-btn">🌙</button>
+
+</body>
+</html>
