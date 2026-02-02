@@ -288,73 +288,98 @@ body.dark .btn-borrar {
 </footer>
 
 <button onclick="toggleDarkMode()" class="dark-btn">🌙</button>
-<script>
-/* 🔐 CLAVE ADMIN */
-const CLAVE_ADMIN = "28241708"; // cambia si quieres
+<script type="module">
+/* ================= FIREBASE ================= */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc, // ✅ ESTO ERA LO QUE FALTABA
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+/* 🔐 CONFIG FIREBASE */
+const firebaseConfig = {
+  apiKey: "AIzaSyARY4cN8Nvb3UPUxWl18lNoa96rpKe6fI8",
+  authDomain: "memstore-789aa.firebaseapp.com",
+  projectId: "memstore-789aa",
+  storageBucket: "memstore-789aa.firebasestorage.app",
+  messagingSenderId: "34887724609",
+  appId: "1:34887724609:web:dc35d5480bbcb6b39f60c0"
+};
+
+/* INIT */
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const comentariosRef = collection(db, "comentarios");
+
+/* ================= ADMIN ================= */
+const CLAVE_ADMIN = "28241708";
 let esAdmin = false;
 
-/* pedir clave solo una vez */
 const clave = prompt("Clave de administrador:");
 if (clave === CLAVE_ADMIN) {
   esAdmin = true;
   alert("Modo administrador activado ✅");
 }
 
-/* 🌙 modo oscuro */
-function toggleDarkMode() {
-  document.body.classList.toggle('dark');
-}
+/* ================= MODO OSCURO ================= */
+window.toggleDarkMode = function () {
+  document.body.classList.toggle("dark");
+};
 
-/* ⭐ estrellas */
+/* ================= ESTRELLAS ================= */
 let rating = 0;
 let ultimoComentario = 0;
 
-document.addEventListener('click', e => {
-  if (e.target.parentElement?.id === 'rating') {
+document.addEventListener("click", e => {
+  if (e.target.parentElement?.id === "rating") {
     rating = Number(e.target.dataset.val);
-    document.querySelectorAll('#rating span').forEach(s => {
-      s.classList.toggle('activa', s.dataset.val <= rating);
+    document.querySelectorAll("#rating span").forEach(s => {
+      s.classList.toggle("activa", s.dataset.val <= rating);
     });
   }
 });
 
-/* 📝 cargar comentarios */
-function cargarComentarios() {
-  const lista = document.getElementById('listaComentarios');
-  const comentarios = JSON.parse(localStorage.getItem('comentarios_memstore')) || [];
-  lista.innerHTML = '';
+/* ================= CARGAR COMENTARIOS ================= */
+async function cargarComentarios() {
+  const lista = document.getElementById("listaComentarios");
+  lista.innerHTML = "";
 
-  comentarios.forEach((c, i) => {
-    const div = document.createElement('div');
-    div.className = 'card';
+  const snapshot = await getDocs(comentariosRef);
+
+  snapshot.forEach(docu => {
+    const c = docu.data();
+    const div = document.createElement("div");
+    div.className = "card";
 
     div.innerHTML = `
       <strong>${c.nombre}</strong>
       <p>${c.mensaje}</p>
-      <div>${'★'.repeat(c.rating)}</div>
-      ${esAdmin ? `<button class="btn-borrar" onclick="borrarComentario(${i})">🗑️ Eliminar</button>` : ''}
+      <div>${"★".repeat(c.rating)}</div>
+      ${esAdmin ? `<button class="btn-borrar">🗑️ Eliminar</button>` : ""}
     `;
+
+    if (esAdmin) {
+      div.querySelector(".btn-borrar").onclick = async () => {
+        await deleteDoc(doc(db, "comentarios", docu.id));
+        cargarComentarios();
+      };
+    }
 
     lista.appendChild(div);
   });
 }
 
-/* 🗑️ borrar solo admin */
-function borrarComentario(index) {
-  if (!esAdmin) return;
-
-  const comentarios = JSON.parse(localStorage.getItem('comentarios_memstore')) || [];
-  comentarios.splice(index, 1);
-  localStorage.setItem('comentarios_memstore', JSON.stringify(comentarios));
-  cargarComentarios();
-}
-
-/* 📩 enviar comentario */
-document.getElementById('comentarios-form').addEventListener('submit', e => {
+/* ================= ENVIAR COMENTARIO ================= */
+document.getElementById("comentarios-form").addEventListener("submit", async e => {
   e.preventDefault();
 
-  const nombre = document.getElementById('nombre').value.trim();
-  const mensaje = document.getElementById('mensaje').value.trim();
+  const nombre = document.getElementById("nombre").value.trim();
+  const mensaje = document.getElementById("mensaje").value.trim();
   const ahora = Date.now();
 
   if (!nombre || !mensaje) {
@@ -374,19 +399,21 @@ document.getElementById('comentarios-form').addEventListener('submit', e => {
 
   ultimoComentario = ahora;
 
-  const comentarios = JSON.parse(localStorage.getItem('comentarios_memstore')) || [];
-  comentarios.push({ nombre, mensaje, rating });
-
-  localStorage.setItem('comentarios_memstore', JSON.stringify(comentarios));
+  await addDoc(comentariosRef, {
+    nombre,
+    mensaje,
+    rating,
+    fecha: serverTimestamp()
+  });
 
   e.target.reset();
   rating = 0;
-  document.querySelectorAll('#rating span').forEach(s => s.classList.remove('activa'));
+  document.querySelectorAll("#rating span").forEach(s => s.classList.remove("activa"));
 
   cargarComentarios();
 });
 
-window.addEventListener('load', cargarComentarios);
+window.addEventListener("load", cargarComentarios);
 </script>
 
 </body>
