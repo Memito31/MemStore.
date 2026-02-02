@@ -196,8 +196,57 @@ body.dark .btn-borrar {
     border-radius: 50%;
     object-fit: cover;
 }
+/* ===== COMENTARIOS ESTÉTICOS ===== */
+.comentarios {
+    background: linear-gradient(180deg, #ffffff, #f1f6f8);
+    padding: 25px;
+    border-radius: 16px;
+    max-width: 900px;
+    margin: 30px auto;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
 
+.comentarios form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
 
+.comentarios input,
+.comentarios textarea {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.comentarios textarea {
+    resize: none;
+    min-height: 80px;
+}
+
+.comentarios button {
+    background: #4a7a8c;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.comentarios button:hover {
+    background: #3b6473;
+}
+
+#listaComentarios .card {
+    margin-top: 15px;
+    text-align: left;
+}
+
+body.dark .comentarios {
+    background: rgba(10,15,40,0.9);
+}
 
 </style>
 </head>
@@ -228,8 +277,31 @@ body.dark .btn-borrar {
     </p>
 </section>
 
-<section id="productos"> <h2>Productos</h2> <p>Los productos todos estan en buenas condiciones sin algun fallo o error, y estan probadas todos los componenetes en este apartado </p> <div class="productos"> <div class="card"><h3> Memoria ram 4GB DDR4</h3><p> Precio RD$6,000.</p></div> <div class="card"><h3> Memoria ram 2GB DDR3</h3><p> Precio RD$500.</p></div> <div class="card"><h3> Memoria ram 4GB DDR3</h3><p> Precio RD$1,500.</p></div> <div class="card"><h3> Memoria ram 4GB DDR3</h3><p> Precio RD$1,500.</p></div> <div class="card"><h3> Almacenamiento 500 GB SSD</h3><p> Precio RD$3,000.</p></div> <div class="card"><h3> Disco duro 250 GB (para pc )</h3><p> Precio RD$1,200.</p></div> <div class="card"><h3> Memoria ram 2GB DDR3 (para pc )</h3><p> Precio RD$500.</p></div> <div class="card"><h3> Memoria ram 2GB DDR2 (para pc ) </h3><p> Precio RD$400.</p></div> </div> </section> <section id="servicios"> <h2>Servicios</h2> <div class="servicios"> <div class="card"><h3> Limpieza de Software</h3><p> Precio RD$500.</p></div> <div class="card"><h3> Instalación de windows</h3><p> Precio RD$1000.</p></div> <div class="card"><h3> Activacion de windows</h3><p>Precio RD$500.</p></div> <div class="card"><h3> Instalación de office</h3><p>Precio RD$1000.</p></div> <div class="card"><h3> Activacion de office</h3><p>Precio RD$500.</p></div> <div class="card"><h3> Instalacion de jeugos </h3><p>100 x juegos.</p></div> </div> </section>
+<section id="productos">
+    <h2>Productos</h2>
+    <div class="productos">
+        <div class="card"><h3>Memoria RAM 4GB DDR4</h3><p>Ideal para mejorar el rendimiento.</p></div>
+        <div class="card"><h3>Memoria RAM 4GB DDR3</h3><p>Compatible con equipos más antiguos.</p></div>
+        <div class="card"><h3>Memoria RAM 2GB DDR3</h3><p>Solución económica.</p></div>
+        <div class="card"><h3>Disco Duro 500GB</h3><p>Almacenamiento confiable.</p></div>
+        <div class="card"><h3>SSD 120GB / 240GB</h3><p>Arranque rápido y mejor velocidad.</p></div>
+        <div class="card"><h3>Memoria USB</h3><p>Fácil de transportar.</p></div>
+        <div class="card"><h3>Accesorios de PC</h3><p>Cables, mouse y más.</p></div>
+    </div>
+</section>
 
+<section id="servicios">
+    <h2>Servicios</h2>
+    <div class="servicios">
+        <div class="card"><h3>Limpieza de Hardware</h3><p>Mantenimiento interno del equipo.</p></div>
+        <div class="card"><h3>Limpieza de Software</h3><p>Eliminación de virus y archivos basura.</p></div>
+        <div class="card"><h3>Instalación de Windows</h3><p>Windows 10 y 11.</p></div>
+        <div class="card"><h3>Activación de Windows</h3><p>Licencia funcional.</p></div>
+        <div class="card"><h3>Instalación de Office</h3><p>Word, Excel, PowerPoint.</p></div>
+        <div class="card"><h3>Activación de Office</h3><p>Office completamente activo.</p></div>
+        <div class="card"><h3>Instalación de Juegos</h3><p>PC y laptops.</p></div>
+    </div>
+</section>
 <section id="contacto">
     <h2>Contacto</h2>
     <p>Instagram:<a href="https://www.instagram.com/menstore_2026/?hl=en">Menstore_2026</a> </p>
@@ -391,6 +463,7 @@ document.getElementById("comentarios-form").addEventListener("submit", async e =
 
 window.addEventListener("load", cargarComentarios);
 </script>
+
 
 </body>
 </html>
