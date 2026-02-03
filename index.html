@@ -247,10 +247,246 @@ body.dark .btn-borrar {
 body.dark .comentarios {
     background: rgba(10,15,40,0.9);
 }
+.respuesta{
+    margin-top: 10px;
+    padding: 10px;
+    background: #eef7fa;
+    border-left: 4px solid #0a4c63;
+    border-radius: 6px;
+    font-size: 14px;
+}
+.respuesta-input{
+    width: 100%;
+    margin-top: 8px;
+}
+/* ===== ADMIN LOGIN FIJO ===== */
+#admin-box { 
+  position: absolute;        /* 🔒 NO SE MUEVE */
+  top: 15px;
+  right: 15px;
+  background: rgba(255,255,255,0.95);
+  padding: 14px;
+  width: 220px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  z-index: 99999;            /* 🔥 súbelo más */
+  font-size: 14px;
+}
+
+
+#admin-box input {
+  width: 100%;
+  padding: 6px;
+  margin: 6px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+#admin-box button {
+  width: 100%;
+  margin-top: 5px;
+  padding: 6px;
+  border: none;
+  border-radius: 6px;
+  background: #4a7a8c;
+  color: white;
+  cursor: pointer;
+}
+
+#admin-status {
+  font-size: 12px;
+  margin-bottom: 6px;
+  color: #555;
+}
+
+body.dark #admin-box {
+  background: rgba(20,25,60,0.95);
+  color: #eaeaea;
+}
+ .btn-like {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+.respuesta {
+  background: #eef6f8;
+  padding: 8px;
+  border-radius: 8px;
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+body.dark .respuesta {
+  background: rgba(255,255,255,0.1);
+}
+/* 🔘 BOTÓN ADMIN (TODOS LOS DISPOSITIVOS) */
+#admin-toggle {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  background: #4a7a8c;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  z-index: 100000;
+}
+
+/* 📦 PANEL ADMIN */
+#admin-box {
+  position: fixed;
+  top: 55px;
+  right: 14px;
+  width: 230px;
+  background: rgba(255,255,255,0.96);
+  padding: 14px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  z-index: 100001;
+  display: none;
+}
+
+/* 🌙 MODO OSCURO */
+body.dark #admin-box {
+  background: rgba(20,25,60,0.95);
+  color: #eaeaea;
+}
+
+/* 🔓 CUANDO ESTÁ ACTIVO */
+#admin-box.activo {
+  display: block;
+}
+/* 🌫️ FONDO MODAL */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(5px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 200000;
+}
+
+/* 📦 CONTENIDO */
+.modal-contenido {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  max-width: 350px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+}
+
+.modal-contenido img {
+  max-width: 100%;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+/* ❌ CERRAR */
+.modal-cerrar {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* 🌙 DARK MODE */
+body.dark .modal-contenido {
+  background: #0b1026;
+  color: #eaeaea;
+}
+/* 🌫️ FONDO DESENFOCADO */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(5px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 200000;
+}
+
+/* 📦 MODAL */
+.modal-producto {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+  text-align: center;
+}
+
+body.dark .modal-producto {
+  background: #0b1026;
+  color: #eaeaea;
+}
+
+/* ❌ CERRAR */
+.cerrar {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* 🖼️ SLIDER */
+.slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider img {
+  width: 100%;
+  max-height: 220px;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+/* ◀ ▶ */
+.flecha {
+  position: absolute;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border: none;
+  font-size: 18px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.izquierda { left: 5px; }
+.derecha { right: 5px; }
+
 
 </style>
 </head>
 <body>
+  <button id="admin-toggle">⚙️ Admin</button>
+
+    <!-- 🔐 PANEL ADMIN -->
+<div id="admin-box">
+  <strong>Admin</strong>
+  <div id="admin-status">Modo visitante</div>
+
+  <input type="password" id="admin-password" placeholder="Clave admin">
+  <button id="admin-login">Entrar</button>
+  <button id="admin-logout" style="display:none;">Salir</button>
+</div>
+
 
 <header>
     <img src="img/mejorn.png" alt="Logo MemStore" class="logo">
@@ -280,13 +516,68 @@ body.dark .comentarios {
 <section id="productos">
     <h2>Productos</h2>
     <div class="productos">
-        <div class="card"><h3>Memoria RAM 4GB DDR4</h3><p>Ideal para mejorar el rendimiento.</p></div>
-        <div class="card"><h3>Memoria RAM 4GB DDR3</h3><p>Compatible con equipos más antiguos.</p></div>
-        <div class="card"><h3>Memoria RAM 2GB DDR3</h3><p>Solución económica.</p></div>
-        <div class="card"><h3>Disco Duro 500GB</h3><p>Almacenamiento confiable.</p></div>
-        <div class="card"><h3>SSD 120GB / 240GB</h3><p>Arranque rápido y mejor velocidad.</p></div>
-        <div class="card"><h3>Memoria USB</h3><p>Fácil de transportar.</p></div>
-        <div class="card"><h3>Accesorios de PC</h3><p>Cables, mouse y más.</p></div>
+
+       <div class="card producto"
+ data-titulo="Memoria RAM 4GB DDR4"
+ data-desc="Ideal para mejorar el rendimiento"
+ data-imgs="img/ram1.png,img/ram2.png,img/ram3.png">
+  <h3>Memoria RAM 4GB DDR4</h3>
+  <p>Ideal para mejorar el rendimiento.</p>
+</div>
+
+
+              <div class="card producto"
+ data-titulo="Memoria RAM 4GB DDR4"
+ data-desc="Ideal para mejorar el rendimiento"
+ data-imgs="img/ram1.png,img/ram2.png,img/ram3.png">
+  <h3>Memoria RAM 4GB DDR4</h3>
+  <p>Ideal para mejorar el rendimiento.</p>
+</div>
+
+
+               <div class="card producto"
+ data-titulo="Memoria RAM 4GB DDR4"
+ data-desc="Ideal para mejorar el rendimiento"
+ data-imgs="img/ram1.png,img/ram2.png,img/ram3.png">
+  <h3>Memoria RAM 4GB DDR4</h3>
+  <p>Ideal para mejorar el rendimiento.</p>
+</div>
+
+
+               <div class="card producto"
+ data-titulo="Memoria RAM 4GB DDR4"
+ data-desc="Ideal para mejorar el rendimiento"
+ data-imgs="img/ram1.png,img/ram2.png,img/ram3.png">
+  <h3>Memoria RAM 4GB DDR4</h3>
+  <p>Ideal para mejorar el rendimiento.</p>
+</div>
+
+
+               <div class="card producto"
+ data-titulo="Memoria RAM 4GB DDR4"
+ data-desc="Ideal para mejorar el rendimiento"
+ data-imgs="img/ram1.png,img/ram2.png,img/ram3.png">
+  <h3>Memoria RAM 4GB DDR4</h3>
+  <p>Ideal para mejorar el rendimiento.</p>
+</div>
+
+               <div class="card producto"
+ data-titulo="Memoria RAM 4GB DDR4"
+ data-desc="Ideal para mejorar el rendimiento"
+ data-imgs="img/ram1.png,img/ram2.png,img/ram3.png">
+  <h3>Memoria RAM 4GB DDR4</h3>
+  <p>Ideal para mejorar el rendimiento.</p>
+</div>
+
+
+               <div class="card producto"
+ data-titulo="Memoria RAM 4GB DDR4"
+ data-desc="Ideal para mejorar el rendimiento"
+ data-imgs="img/ram1.png,img/ram2.png,img/ram3.png">
+  <h3>Memoria RAM 4GB DDR4</h3>
+  <p>Ideal para mejorar el rendimiento.</p>
+</div>
+
     </div>
 </section>
 
@@ -335,134 +626,294 @@ body.dark .comentarios {
     <p>&copy; 2026 MemStore - Todos los derechos reservados</p>
 </footer>
 
-<button onclick="toggleDarkMode()" class="dark-btn">🌙</button>
+<button id="dark-toggle" class="dark-btn">🌙</button>
+
 <script type="module">
-/* ================= FIREBASE ================= */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  deleteDoc,
-  doc, // ✅ ESTO ERA LO QUE FALTABA
-  serverTimestamp
+getFirestore, collection, addDoc, getDocs,
+deleteDoc, updateDoc, doc, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-/* 🔐 CONFIG FIREBASE */
+/* ===== FIREBASE ===== */
 const firebaseConfig = {
-  apiKey: "AIzaSyARY4cN8Nvb3UPUxWl18lNoa96rpKe6fI8",
-  authDomain: "memstore-789aa.firebaseapp.com",
-  projectId: "memstore-789aa",
-  storageBucket: "memstore-789aa.firebasestorage.app",
-  messagingSenderId: "34887724609",
-  appId: "1:34887724609:web:dc35d5480bbcb6b39f60c0"
+apiKey: "AIzaSyARY4cN8Nvb3UPUxWl18lNoa96rpKe6fI8",
+authDomain: "memstore-789aa.firebaseapp.com",
+projectId: "memstore-789aa",
+storageBucket: "memstore-789aa.firebasestorage.app",
+messagingSenderId: "34887724609",
+appId: "1:34887724609:web:dc35d5480bbcb6b39f60c0"
 };
 
-/* INIT */
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const comentariosRef = collection(db, "comentarios");
+const comentariosRef = collection(db,"comentarios");
 
-/* ================= ADMIN ================= */
+/* ===== ADMIN ===== */
 const CLAVE_ADMIN = "28241708";
-let esAdmin = false;
+let esAdmin = localStorage.getItem("admin") === "true";
 
-const clave = prompt("Clave de administrador:");
-if (clave === CLAVE_ADMIN) {
-  esAdmin = true;
-  alert("Modo administrador activado ✅");
+const adminStatus = document.getElementById("admin-status");
+const adminInput = document.getElementById("admin-password");
+const btnLogin = document.getElementById("admin-login");
+const btnLogout = document.getElementById("admin-logout");
+
+function actualizarAdminUI() {
+  if (esAdmin) {
+    adminStatus.textContent = "Modo administrador";
+    adminInput.style.display = "none";
+    btnLogin.style.display = "none";
+    btnLogout.style.display = "block";
+  } else {
+    adminStatus.textContent = "Modo visitante";
+    adminInput.style.display = "block";
+    btnLogin.style.display = "block";
+    btnLogout.style.display = "none";
+  }
 }
 
-/* ================= MODO OSCURO ================= */
-window.toggleDarkMode = function () {
-  document.body.classList.toggle("dark");
-};
+actualizarAdminUI();
 
-/* ================= ESTRELLAS ================= */
-let rating = 0;
-let ultimoComentario = 0;
-
-document.addEventListener("click", e => {
-  if (e.target.parentElement?.id === "rating") {
-    rating = Number(e.target.dataset.val);
-    document.querySelectorAll("#rating span").forEach(s => {
-      s.classList.toggle("activa", s.dataset.val <= rating);
-    });
+/* LOGIN */
+btnLogin.addEventListener("click", () => {
+  if (adminInput.value === CLAVE_ADMIN) {
+    esAdmin = true;
+    localStorage.setItem("admin", "true");
+    adminInput.value = "";
+    actualizarAdminUI();
+    cargarComentarios();
+  } else {
+    alert("Clave incorrecta bro ❌");
   }
 });
 
-/* ================= CARGAR COMENTARIOS ================= */
+/* LOGOUT */
+btnLogout.addEventListener("click", () => {
+  esAdmin = false;
+  localStorage.removeItem("admin");
+  actualizarAdminUI();
+  cargarComentarios();
+});
+
+/* ===== ESTRELLAS ===== */
+let rating=0;
+document.addEventListener("click",e=>{
+if(e.target.parentElement?.id==="rating"){
+rating=+e.target.dataset.val;
+document.querySelectorAll("#rating span").forEach(s=>{
+s.classList.toggle("activa",s.dataset.val<=rating)
+})
+}
+});
+
+/* ===== CARGAR COMENTARIOS ===== */
 async function cargarComentarios() {
   const lista = document.getElementById("listaComentarios");
   lista.innerHTML = "";
 
-  const snapshot = await getDocs(comentariosRef);
+  const snap = await getDocs(comentariosRef);
 
-  snapshot.forEach(docu => {
-    const c = docu.data();
+  snap.forEach(d => {
+    const c = d.data();
     const div = document.createElement("div");
     div.className = "card";
+
+    const likeKey = `like_${d.id}`;
+    const yaDioLike = localStorage.getItem(likeKey);
 
     div.innerHTML = `
       <strong>${c.nombre}</strong>
       <p>${c.mensaje}</p>
-      <div>${"★".repeat(c.rating)}</div>
-      ${esAdmin ? `<button class="btn-borrar">🗑️ Eliminar</button>` : ""}
+      <div>${"★".repeat(c.rating || 0)}</div>
+
+      <button class="btn-like" ${yaDioLike ? "disabled" : ""}>
+        👍 ${c.likes || 0}
+      </button>
+
+      ${c.respuesta ? `
+        <div class="respuesta">
+          <strong>Admin:</strong> ${c.respuesta}
+        </div>
+      ` : ""}
+
+      ${esAdmin ? `
+        <textarea class="respuesta-input" placeholder="Responder comentario..."></textarea>
+        <button class="btn-responder">Responder</button>
+        <button class="btn-borrar">🗑️ Eliminar comentario</button>
+        ${c.respuesta ? `<button class="btn-borrar-respuesta">🗑️ Borrar respuesta</button>` : ""}
+      ` : ""}
     `;
 
-    if (esAdmin) {
-      div.querySelector(".btn-borrar").onclick = async () => {
-        await deleteDoc(doc(db, "comentarios", docu.id));
+    /* 👍 LIKE (TODOS) */
+    const btnLike = div.querySelector(".btn-like");
+    if (btnLike && !yaDioLike) {
+      btnLike.onclick = async () => {
+        await updateDoc(doc(db, "comentarios", d.id), {
+          likes: (c.likes || 0) + 1
+        });
+        localStorage.setItem(likeKey, "true");
         cargarComentarios();
       };
+    }
+
+    /* 💬 RESPONDER (ADMIN) */
+    if (esAdmin) {
+      div.querySelector(".btn-responder")?.addEventListener("click", async () => {
+        const texto = div.querySelector(".respuesta-input").value.trim();
+        if (!texto) return alert("Escribe una respuesta bro");
+
+        await updateDoc(doc(db, "comentarios", d.id), {
+          respuesta: texto
+        });
+        cargarComentarios();
+      });
+
+      /* 🗑️ BORRAR COMENTARIO */
+      div.querySelector(".btn-borrar")?.addEventListener("click", async () => {
+        if (!confirm("¿Seguro que quieres borrar este comentario?")) return;
+        await deleteDoc(doc(db, "comentarios", d.id));
+        cargarComentarios();
+      });
+
+      /* 🗑️ BORRAR RESPUESTA */
+      div.querySelector(".btn-borrar-respuesta")?.addEventListener("click", async () => {
+        await updateDoc(doc(db, "comentarios", d.id), {
+          respuesta: ""
+        });
+        cargarComentarios();
+      });
     }
 
     lista.appendChild(div);
   });
 }
 
-/* ================= ENVIAR COMENTARIO ================= */
-document.getElementById("comentarios-form").addEventListener("submit", async e => {
-  e.preventDefault();
 
-  const nombre = document.getElementById("nombre").value.trim();
-  const mensaje = document.getElementById("mensaje").value.trim();
-  const ahora = Date.now();
-
-  if (!nombre || !mensaje) {
-    alert("Completa todos los campos bro");
-    return;
-  }
-
-  if (rating === 0) {
-    alert("Pon estrellas ⭐");
-    return;
-  }
-
-  if (ahora - ultimoComentario < 30000) {
-    alert("Espera 30 segundos ⏳");
-    return;
-  }
-
-  ultimoComentario = ahora;
-
-  await addDoc(comentariosRef, {
-    nombre,
-    mensaje,
-    rating,
-    fecha: serverTimestamp()
-  });
-
-  e.target.reset();
-  rating = 0;
-  document.querySelectorAll("#rating span").forEach(s => s.classList.remove("activa"));
-
-  cargarComentarios();
+/* ===== ENVIAR ===== */
+document.getElementById("comentarios-form").addEventListener("submit",async e=>{
+e.preventDefault();
+await addDoc(comentariosRef,{
+nombre:nombre.value,
+mensaje:mensaje.value,
+rating,
+likes: 0,
+fecha:serverTimestamp()
+});
+e.target.reset();
+rating=0;
+cargarComentarios();
 });
 
-window.addEventListener("load", cargarComentarios);
+window.addEventListener("load",cargarComentarios);
+
+const adminBox = document.getElementById("admin-box");
+const adminToggle = document.getElementById("admin-toggle");
+
+/* ABRIR / CERRAR */
+adminToggle.addEventListener("click", (e) => {
+  e.stopPropagation();
+  adminBox.classList.toggle("activo");
+});
+
+/* CERRAR TOCANDO FUERA */
+document.addEventListener("click", (e) => {
+  if (
+    adminBox.classList.contains("activo") &&
+    !adminBox.contains(e.target) &&
+    e.target !== adminToggle
+  ) {
+    adminBox.classList.remove("activo");
+  }
+});
+
+/* CERRAR AL ENTRAR O SALIR */
+btnLogin.addEventListener("click", () => {
+  adminBox.classList.remove("activo");
+});
+
+btnLogout.addEventListener("click", () => {
+  adminBox.classList.remove("activo");
+});
+
+/* 🌙 MODO OSCURO (FIX DEFINITIVO) */
+const darkBtn = document.getElementById("dark-toggle");
+
+darkBtn.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+
+  if (document.body.classList.contains("dark")) {
+    localStorage.setItem("darkMode", "on");
+  } else {
+    localStorage.removeItem("darkMode");
+  }
+});
+
+
+/* MANTENER MODO OSCURO */
+if (localStorage.getItem("darkMode") === "on") {
+  document.body.classList.add("dark");
+}
+/* 🖼️ MODAL PRODUCTOS CON SLIDER */
+const overlay = document.getElementById("overlay");
+const modalImg = document.getElementById("modal-img");
+const modalTitulo = document.getElementById("modal-titulo");
+const modalDesc = document.getElementById("modal-desc");
+const cerrar = document.querySelector(".cerrar");
+
+const flechaIzq = document.querySelector(".izquierda");
+const flechaDer = document.querySelector(".derecha");
+
+let imagenes = [];
+let index = 0;
+
+/* ABRIR */
+document.querySelectorAll(".producto").forEach(card => {
+  card.addEventListener("click", () => {
+    imagenes = card.dataset.imgs.split(",");
+    index = 0;
+
+    modalImg.src = imagenes[index];
+    modalTitulo.textContent = card.dataset.titulo;
+    modalDesc.textContent = card.dataset.desc;
+
+    overlay.style.display = "flex";
+  });
+});
+
+/* CERRAR */
+cerrar.onclick = () => overlay.style.display = "none";
+overlay.onclick = e => {
+  if (e.target === overlay) overlay.style.display = "none";
+};
+
+/* FLECHAS */
+flechaDer.onclick = () => {
+  index = (index + 1) % imagenes.length;
+  modalImg.src = imagenes[index];
+};
+
+flechaIzq.onclick = () => {
+  index = (index - 1 + imagenes.length) % imagenes.length;
+  modalImg.src = imagenes[index];
+};
+
 </script>
+
+<!-- 🖼️ MODAL PRODUCTO -->
+<div id="overlay" class="overlay">
+  <div class="modal-producto">
+    <span class="cerrar">&times;</span>
+
+    <div class="slider">
+      <button class="flecha izquierda">❮</button>
+      <img id="modal-img" src="" alt="Producto">
+      <button class="flecha derecha">❯</button>
+    </div>
+
+    <h3 id="modal-titulo"></h3>
+    <p id="modal-desc"></p>
+  </div>
+</div>
 
 
 </body>
