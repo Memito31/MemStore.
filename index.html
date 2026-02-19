@@ -471,6 +471,24 @@ body.dark .modal-producto {
 .izquierda { left: 5px; }
 .derecha { right: 5px; }
 
+/* 🔍 ZOOM */
+.slider img {
+  cursor: zoom-in;
+  transition: transform 0.3s ease;
+}
+
+.slider img.zoom {
+  transform: scale(2);
+  cursor: zoom-out;
+}
+.slider {
+  overflow: hidden;
+}
+
+.slider img.zoom {
+  cursor: grab;
+}
+
 
 </style>
 </head>
@@ -517,64 +535,53 @@ body.dark .modal-producto {
     <h2>Productos</h2>
     <div class="productos">
 
-       <div class="card producto"
- data-titulo="Memoria RAM 4GB DDR4"
- data-desc="Ideal para mejorar el rendimiento"
- data-imgs="img/ram1.png,img/ram2.png,img/ram3.png">
-  <h3>Memoria RAM 4GB DDR4</h3>
-  <p>Ideal para mejorar el rendimiento.</p>
-</div>
-
-
               <div class="card producto"
  data-titulo="Memoria RAM 4GB DDR4"
- data-desc="Ideal para mejorar el rendimiento"
+ data-desc="Precio RD 6,000"
  data-imgs="img/ram1.png,img/ram2.png,img/ram3.png">
   <h3>Memoria RAM 4GB DDR4</h3>
   <p>Ideal para mejorar el rendimiento.</p>
 </div>
-
-
-               <div class="card producto"
- data-titulo="Memoria RAM 4GB DDR4"
- data-desc="Ideal para mejorar el rendimiento"
+              <div class="card producto"
+ data-titulo="Memoria RAM 2GB DDR3"
+ data-desc="Precio RD 500"
  data-imgs="img/ram1.png,img/ram2.png,img/ram3.png">
-  <h3>Memoria RAM 4GB DDR4</h3>
+  <h3>Memoria RAM 2GB DDR3  </h3>
   <p>Ideal para mejorar el rendimiento.</p>
 </div>
-
-
                <div class="card producto"
- data-titulo="Memoria RAM 4GB DDR4"
- data-desc="Ideal para mejorar el rendimiento"
+ data-titulo="Memoria RAM 4GB DDR3"
+ data-desc="Precio RD 1,500"
  data-imgs="img/ram1.png,img/ram2.png,img/ram3.png">
-  <h3>Memoria RAM 4GB DDR4</h3>
+  <h3>Memoria RAM 4GB DDR3</h3>
   <p>Ideal para mejorar el rendimiento.</p>
 </div>
-
-
-               <div class="card producto"
- data-titulo="Memoria RAM 4GB DDR4"
- data-desc="Ideal para mejorar el rendimiento"
+              <div class="card producto"
+ data-titulo="Memoria RAM 4GB DDR3"
+ data-desc="Precio RD 1,500"
  data-imgs="img/ram1.png,img/ram2.png,img/ram3.png">
-  <h3>Memoria RAM 4GB DDR4</h3>
+  <h3>Memoria RAM 4GB DDR3</h3>
   <p>Ideal para mejorar el rendimiento.</p>
 </div>
-
-               <div class="card producto"
- data-titulo="Memoria RAM 4GB DDR4"
+      <div class="card producto"
+ data-titulo="Almacenamiento de 500 GB SSD"
  data-desc="Ideal para mejorar el rendimiento"
+ data-imgs="img/ft1.png,img/ram2.png,img/ram3.png">
+  <h3>Almacenamiento de 500 GB SSD </h3>
+  <p>Aumenta el Almacenamiento y mejora el rendimiento .</p>
+</div>
+              <div class="card producto"
+ data-titulo="Memoria RAM 2GB DDR3"
+ data-desc="Precio RD 500"
  data-imgs="img/ram1.png,img/ram2.png,img/ram3.png">
-  <h3>Memoria RAM 4GB DDR4</h3>
+  <h3>Memoria RAM 2GB DDR3 (para pc ) </h3>
   <p>Ideal para mejorar el rendimiento.</p>
 </div>
-
-
-               <div class="card producto"
- data-titulo="Memoria RAM 4GB DDR4"
- data-desc="Ideal para mejorar el rendimiento"
+              <div class="card producto"
+ data-titulo="Memoria RAM 2GB DDR3"
+ data-desc="Precio RD 500"
  data-imgs="img/ram1.png,img/ram2.png,img/ram3.png">
-  <h3>Memoria RAM 4GB DDR4</h3>
+  <h3>Memoria RAM 2GB DDR2 (para pc) </h3>
   <p>Ideal para mejorar el rendimiento.</p>
 </div>
 
@@ -591,6 +598,7 @@ body.dark .modal-producto {
         <div class="card"><h3>Instalación de Office</h3><p>Word, Excel, PowerPoint.</p></div>
         <div class="card"><h3>Activación de Office</h3><p>Office completamente activo.</p></div>
         <div class="card"><h3>Instalación de Juegos</h3><p>PC y laptops.</p></div>
+         <div class="card"><h3>Editacion de videos (BETA)</h3><p>subir volumen y mejorar iluminacion</p></div>
     </div>
 </section>
 <section id="contacto">
@@ -886,16 +894,52 @@ overlay.onclick = e => {
   if (e.target === overlay) overlay.style.display = "none";
 };
 
-/* FLECHAS */
+/* 🔍 ZOOM IMAGEN */
+let zoomActivo = false;
+
+modalImg.addEventListener("click", () => {
+  zoomActivo = !zoomActivo;
+
+  if (!zoomActivo) {
+    modalImg.classList.remove("zoom");
+    modalImg.style.transform = "";
+  } else {
+    modalImg.classList.add("zoom");
+  }
+});
+/* 🔄 RESETEAR ZOOM AL CAMBIAR IMAGEN */
+function actualizarImagen() {
+  zoomActivo = false;
+  modalImg.classList.remove("zoom");
+  modalImg.src = imagenes[index];
+}
+
+/* ACTUALIZA LAS FLECHAS */
 flechaDer.onclick = () => {
   index = (index + 1) % imagenes.length;
-  modalImg.src = imagenes[index];
+  actualizarImagen();
 };
 
 flechaIzq.onclick = () => {
   index = (index - 1 + imagenes.length) % imagenes.length;
-  modalImg.src = imagenes[index];
+  actualizarImagen();
 };
+
+let startX = 0, startY = 0, moveX = 0, moveY = 0;
+
+modalImg.addEventListener("mousemove", e => {
+  if (!zoomActivo) return;
+
+  const rect = modalImg.getBoundingClientRect();
+  moveX = ((e.clientX - rect.left) / rect.width - 0.5) * -100;
+  moveY = ((e.clientY - rect.top) / rect.height - 0.5) * -100;
+
+  modalImg.style.transform = `scale(2) translate(${moveX}px, ${moveY}px)`;
+});
+
+modalImg.addEventListener("mouseleave", () => {
+  if (zoomActivo) modalImg.style.transform = "scale(2)";
+});
 
 </script>
 
